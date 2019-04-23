@@ -1,0 +1,14 @@
+Find the Shade
+
+This library is about picking the right shade of make up. It
+is a common problem that people end up with the shade of
+make up they are not happy with, and feel challenged by the
+task of finding the right shade for them.
+
+This library addresses the case when someone has their photo
+where their skin color vs wrong shade is visible, and they
+know the name of this shade. What the library aims to do is
+to recommend them better make-up shades.
+
+It is the base C library. An UI on the top of it should be a
+separate project.
