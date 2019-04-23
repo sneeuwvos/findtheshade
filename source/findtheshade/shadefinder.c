@@ -52,6 +52,9 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
      * */
     rgb_shade_search_result* search_results = calloc(rgb_shade_arr_size, sizeof(rgb_shade_search_result));
 
+    /**
+     * Prepare the result array. (fill it with the data)
+     * */
     for(int i=0; i<rgb_shade_arr_size; i++) {
         double dist = color_distance(rgb_shade_arr[i].color, rgb_shade_wanted);
         int luminance_cmp_res = luminance_cmp(rgb_shade_arr[i].color, rgb_shade_wanted);
@@ -60,10 +63,19 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
         search_results[i].luminance_cmp = luminance_cmp_res;
     }
 
+    /**
+     * Sort the result array
+     * */
     qsort(search_results, rgb_shade_arr_size, sizeof(rgb_shade_search_result), compare_temp_results_by_dist);
 
+    /**
+     * Prepare the result
+     * */
     rgb_shade_search_result_with_meta search_results_with_meta;
 
+    /* Better do it one by one than worry whether the order may
+     * get altered in the future
+     * */
     search_results_with_meta.result_arr = search_results;
     search_results_with_meta.length = rgb_shade_arr_size;
     search_results_with_meta.wanted_luminance_cmp = wanted_luminance_cmp;
