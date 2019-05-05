@@ -3,7 +3,7 @@
 
 /** Data type for universal colors with three components */
 typedef struct {
-    double a, b, c;
+    double r, g, b;
 } norm_col;
 
 /** Normalizer for 0-255 RGBs into [0-1] RGBs */
