@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include <shadefinder.h>
+#include <affinetransf.h>
 
 int compare_temp_results_by_dist(const void *a, const void *b) {
     return (int)(1000*((const rgb_shade_search_result*)a)->dist) - (int)(1000*((const rgb_shade_search_result*)b)->dist);
@@ -27,21 +28,15 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
     } // TODO: any error message?
 
     /**
-     * Now, obtain the transformation from the ideal color
-     * palette item to the color that is stated as 'having'.
-     *
-     * This will allow to translate the wanted color to the
-     * palette that this code knows about.
+     * Now, use the real world colors to define affine color
+     * transformation in the YIQ color space. Then apply it to
+     * the identified ideal color of the owned make up shade in
+     * order to get the wanted ideal make up color. That color
+     * will then be looked for among known shades.
      * */
-    double transf[3];
-    obtain_transformation_linear(
-        color_having, // source
-        rgb_shade_having.color, // target,
-        transf
-    );
 
     /** Here it is. The wanted color */
-    rgb_color rgb_shade_wanted = apply_transformation_linear(color_wanted, transf);
+    rgb_color rgb_shade_wanted = apply_affine_trans_via_yiq(color_having, color_wanted, rgb_shade_having.color);
 
     // Compute its luminance diff ftr
     double wanted_luminance_cmp = luminance_cmp(rgb_shade_wanted, rgb_shade_having.color);
