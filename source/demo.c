@@ -8,8 +8,8 @@ int main(int argc, char** argv) {
     int foundation_colors_size = all_foundation_colors_size();
 
     // Define some input
-    rgb_color having = {230, 174, 159};
-    rgb_color wanted = {225, 182, 163};
+    rgb_color having = {189, 157, 144};
+    rgb_color wanted = {198, 177, 172};
     const char* shade_name = "N4";
 
     // Make the query
