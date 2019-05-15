@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include <shades.h>
+#include "shades.h"
 
 /**
  * Color searcher across an array of rgb_shades. It requires

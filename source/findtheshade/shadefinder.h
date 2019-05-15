@@ -1,8 +1,8 @@
 #ifndef INCL_FTS_SHADE_FINDER
 #define INCL_FTS_SHADE_FINDER
 
-#include <shades.h>
-#include <colorutils.h>
+#include "shades.h"
+#include "colorutils.h"
 
 /**
  * Type for a search result

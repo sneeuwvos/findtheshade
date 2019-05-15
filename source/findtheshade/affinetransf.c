@@ -1,5 +1,5 @@
-#include <affinetransf.h>
-#include <colorutils.h>
+#include "affinetransf.h"
+#include "colorutils.h"
 
 /** Data type for universal colors with three components */
 typedef struct {

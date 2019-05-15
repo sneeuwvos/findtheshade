@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include <shadefinder.h>
-#include <affinetransf.h>
+#include "shadefinder.h"
+#include "affinetransf.h"
 
 int compare_temp_results_by_dist(const void *a, const void *b) {
     return (int)(1000*((const rgb_shade_search_result*)a)->dist) - (int)(1000*((const rgb_shade_search_result*)b)->dist);

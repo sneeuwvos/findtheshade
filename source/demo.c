@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include <shadefinder.h>
+#include "shadefinder.h"
 
 int main(void) {
     // Obtain the shade palette

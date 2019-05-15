@@ -1,8 +1,8 @@
 #include <string.h>
 #include <math.h>
 
-#include <shades.h>
-#include <colorutils.h>
+#include "shades.h"
+#include "colorutils.h"
 
 /**
  * Lookup of a shade by name inside an array. Yeh wish yeh

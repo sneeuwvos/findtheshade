@@ -1,7 +1,7 @@
 #ifndef INCL_FTS_AFFINE_TRANSF
 #define INCL_FTS_AFFINE_TRANSF
 
-#include <shades.h>
+#include "shades.h"
 
 /**
  * Uses affine transformation in via the UIQ color space in
