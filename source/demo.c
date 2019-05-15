@@ -2,7 +2,7 @@
 
 #include <shadefinder.h>
 
-int main(int argc, char** argv) {
+int main(void) {
     // Obtain the shade palette
     rgb_shade* foundation_colors = all_foundation_colors();
     int foundation_colors_size = all_foundation_colors_size();
