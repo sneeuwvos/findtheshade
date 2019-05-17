@@ -85,4 +85,19 @@ norm_col yiq_to_rgb(norm_col yiq);
 
 norm_col rgb_to_hsv(norm_col col);
 
+/**
+ * Handle the pre C99.
+ *
+ * The fmin and fmax functions only exist since C99. They are
+ * farily simple, thus adding them for those compilers that
+ * will need them.
+ * */
+
+#if __STDC_VERSION__ < 199901L
+/** Returns the minimum of the two values */
+double fmin(double, double);
+/** Returns the maximum of the two values */
+double fmax(double, double);
+#endif
+
 #endif

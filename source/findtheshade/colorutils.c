@@ -177,3 +177,10 @@ norm_col rgb_to_hsv(norm_col col) {
 
     return hsv;
 }
+
+/** Handle the pre C99. See comment in the *.h file */
+
+#if __STDC_VERSION__ < 199901L
+double fmin(double a, double b) { return a < b ? a : b; }
+double fmax(double a, double b) { return a > b ? a : b; }
+#endif
