@@ -58,12 +58,6 @@ rgb_shade_search_result_with_meta* closest_rgb_shades(
 );
 
 /**
- * Result comparator by dist
- * */
-
-int compare_temp_results_by_dist(const void *, const void *); /* Wants two of type rgb_shade_search_result */
-
-/**
  * Custom freer for the search result data type
  * */
 
