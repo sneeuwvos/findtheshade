@@ -3,6 +3,8 @@
 
 #include "colorutils.h"
 
+#define EPSILON 0.00001
+
 /** Printer for rgb_color */
 
 void print_rgb_color(FILE* handle, rgb_color col) {
@@ -106,4 +108,44 @@ norm_col rgb_to_yiq(norm_col rgb) {
 double yiq_to_rgb_arr[] = {0.999664, 0.956541, 0.620862, 0.999625, -0.272275, -0.647451, 1.00281, -1.10685, 1.70541};
 norm_col yiq_to_rgb(norm_col yiq) {
     return col_matmult(yiq, yiq_to_rgb_arr);
+}
+
+/** Converted from RGB to HSV */
+norm_col rgb_to_hsv(norm_col col) {
+    double maxval = fmax(fmax(col.r, col.b), col.b);
+    double minval = fmin(fmin(col.r, col.b), col.b);
+
+    double h;
+    double s;
+    double v;
+
+    /** Hue */
+    if(fabs(maxval - minval) < EPSILON) {
+        h = 0;
+    }
+    else if(col.r > col.b && col.r > col.g) {
+        h = 60.0 * (0 + (col.g - col.b) / (maxval - minval));
+    }
+    else if(col.g > col.r && col.g > col.b) {
+        h = 60.0 * (2 + (col.b - col.r) / (maxval - minval));
+    }
+    else {
+        h = 60.0 * (4 + (col.r - col.g) / (maxval - minval));
+    }
+
+    if(h < 0) { h += 360.0; }
+
+    /** Saturation */
+    if(fabs(maxval) < EPSILON) {
+        s = 0;
+    }
+    else {
+        s = (maxval - minval) / maxval;
+    }
+
+    /** Value */
+    v = maxval;
+
+    norm_col hsv = {h, s, v};
+    return hsv;
 }

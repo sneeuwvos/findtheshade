@@ -77,4 +77,8 @@ norm_col rgb_to_yiq(norm_col rgb);
 
 norm_col yiq_to_rgb(norm_col yiq);
 
+/** Converted from RGB to HSV */
+
+norm_col rgb_to_hsv(norm_col col);
+
 #endif
