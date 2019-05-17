@@ -52,8 +52,10 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
      * */
     for(int i=0; i<rgb_shade_arr_size; i++) {
         double dist = color_distance(rgb_shade_arr[i].color, rgb_shade_wanted);
+        double hue_dist = hue_distance(rgb_shade_arr[i].color, rgb_shade_wanted);
         int luminance_cmp_res = luminance_cmp(rgb_shade_arr[i].color, rgb_shade_wanted);
         search_results[i].dist = dist;
+        search_results[i].hue_dist = hue_dist;
         search_results[i].mc = &rgb_shade_arr[i];
         search_results[i].luminance_cmp = luminance_cmp_res;
     }

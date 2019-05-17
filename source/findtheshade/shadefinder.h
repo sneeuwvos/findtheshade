@@ -10,6 +10,7 @@
 
 typedef struct {
     double dist;
+    double hue_dist;
     rgb_shade* mc;
     double luminance_cmp;
 } rgb_shade_search_result;
