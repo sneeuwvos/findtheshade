@@ -76,6 +76,21 @@ double color_distance(rgb_color a, rgb_color b) {
     return color_distance_base(a.r, a.g, a.b, b.r, b.g, b.b);
 }
 
+/** Helper that tells hue distance between two colors */
+
+double hue_distance(rgb_color a, rgb_color b) {
+    norm_col na = rgb_norm(a);
+    norm_col nb = rgb_norm(b);
+
+    // Get hue from the a
+    norm_col hsva = rgb_to_hsv(na);
+
+    // Get hue from the b
+    norm_col hsvb = rgb_to_hsv(nb);
+
+    return fabs(hsva.r - hsvb.r);
+}
+
 /** Normalizer for 0-255 RGBs into [0-1] RGBs */
 norm_col rgb_norm(rgb_color rgb) {
     norm_col nc = {rgb.r / 255.0, rgb.g / 255.0, rgb.b / 255.0};

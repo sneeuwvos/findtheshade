@@ -57,6 +57,10 @@ rgb_color apply_transformation_linear(rgb_color, double*);
 double color_distance(rgb_color a, rgb_color b);
 double color_distance_base(int ar, int ag, int ab, int br, int bg, int bb);
 
+/** Helper that tells the hue distance between two colors. */
+
+double hue_distance(rgb_color a, rgb_color b);
+
 /** Normalizer for 0-255 RGBs into [0-1] RGBs */
 
 norm_col rgb_norm(rgb_color rgb);
