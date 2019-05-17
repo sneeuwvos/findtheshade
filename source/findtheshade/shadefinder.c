@@ -34,6 +34,11 @@ rgb_shade_search_result_with_meta* closest_rgb_shades(
     int luminance_cmp_res;
     int i;
 
+    /** Quit early if there is nothing expected back */
+    if(rgb_shade_arr_size < 1 || !rgb_shade_arr || !color_having_name || !*color_having_name) {
+        return 0; /* NULL */
+    }
+
     /** Locate the owned shade */
     rgb_shade_having = find_shade_by_name(
         rgb_shade_arr,
