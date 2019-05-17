@@ -145,8 +145,8 @@ norm_col rgb_to_hsv(norm_col col) {
     norm_col hsv;
 
     /* Obtain the minimum and the maximum RGB value */
-    double maxval = fmax(fmax(col.r, col.b), col.b);
-    double minval = fmin(fmin(col.r, col.b), col.b);
+    double maxval = fmax(fmax(col.r, col.g), col.b);
+    double minval = fmin(fmin(col.r, col.g), col.b);
 
     /* Obtain the hue */
     if(fabs(maxval - minval) < EPSILON) {
