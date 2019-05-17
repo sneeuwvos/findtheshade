@@ -41,13 +41,15 @@ int main(void) {
             print_rgb_shade(stdout, *(sr->mc));
             printf(": dist: %.3f; hue_dist: %.3f; luminance_cmp: %.3f\n", sr->dist, sr->hue_dist, sr->luminance_cmp);
         }
-
-        /** Data also needs freeing after having been created */
-        free_closest_rgb_shades(search_results);
-        search_results = 0; /* = NULL */
     }
     else {
         printf("No results for this query.\n");
+    }
+
+    if(search_results) {
+        /** The SR also needs freeing after having been created */
+        free_closest_rgb_shades(search_results);
+        search_results = 0; /* = NULL */
     }
 
     return 0;
