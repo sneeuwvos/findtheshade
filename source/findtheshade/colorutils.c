@@ -93,23 +93,28 @@ double hue_distance(rgb_color a, rgb_color b) {
 
 /** Normalizer for 0-255 RGBs into [0-1] RGBs */
 norm_col rgb_norm(rgb_color rgb) {
-    norm_col nc = {rgb.r / 255.0, rgb.g / 255.0, rgb.b / 255.0};
+    norm_col nc;
+    nc.r = rgb.r / 255.0;
+    nc.g = rgb.g / 255.0;
+    nc.b = rgb.b / 255.0;
     return nc;
 }
 
 /** Unnormalizer from [0-1] RGBs to 0-255 RGBs */
 rgb_color rgb_unnorm(norm_col nc) {
-    rgb_color rgb = {(int)(255.0 * nc.r), (int)(255.0 * nc.g), (int)(255.0 * nc.b)};
+    rgb_color rgb;
+    rgb.r = (int)(255.0 * nc.r);
+    rgb.g = (int)(255.0 * nc.g);
+    rgb.b = (int)(255.0 * nc.b);
     return rgb;
 }
 
 /** Multiplier for a color and a transformation matrix */
 norm_col col_matmult(norm_col col, double* mat) {
-    norm_col res = {
-        col.r * mat[0] + col.g * mat[1] + col.b * mat[2],
-        col.r * mat[3] + col.g * mat[4] + col.b * mat[5],
-        col.r * mat[6] + col.g * mat[7] + col.b * mat[8]
-    };
+    norm_col res;
+    res.r = col.r * mat[0] + col.g * mat[1] + col.b * mat[2];
+    res.g = col.r * mat[3] + col.g * mat[4] + col.b * mat[5];
+    res.b = col.r * mat[6] + col.g * mat[7] + col.b * mat[8];
     return res;
 }
 
@@ -127,40 +132,48 @@ norm_col yiq_to_rgb(norm_col yiq) {
 
 /** Converted from RGB to HSV */
 norm_col rgb_to_hsv(norm_col col) {
+    /**
+     * Result placeholder.
+     *
+     * It is a bit quirky use for now, for lack of creativity
+     * on my part. So, the components will map like this:
+     *
+     *  - h will lie under .r
+     *  - s will lie under .g
+     *  - v will lie under .b
+     * */
+    norm_col hsv;
+
+    /* Obtain the minimum and the maximum RGB value */
     double maxval = fmax(fmax(col.r, col.b), col.b);
     double minval = fmin(fmin(col.r, col.b), col.b);
 
-    double h;
-    double s;
-    double v;
-
-    /** Hue */
+    /* Obtain the hue */
     if(fabs(maxval - minval) < EPSILON) {
-        h = 0;
+        hsv.r = 0;
     }
     else if(col.r > col.b && col.r > col.g) {
-        h = 60.0 * (0 + (col.g - col.b) / (maxval - minval));
+        hsv.r = 60.0 * (0 + (col.g - col.b) / (maxval - minval));
     }
     else if(col.g > col.r && col.g > col.b) {
-        h = 60.0 * (2 + (col.b - col.r) / (maxval - minval));
+        hsv.r = 60.0 * (2 + (col.b - col.r) / (maxval - minval));
     }
     else {
-        h = 60.0 * (4 + (col.r - col.g) / (maxval - minval));
+        hsv.r = 60.0 * (4 + (col.r - col.g) / (maxval - minval));
     }
 
-    if(h < 0) { h += 360.0; }
+    if(hsv.r < 0) { hsv.r += 360.0; }
 
-    /** Saturation */
+    /* Obtain the saturation */
     if(fabs(maxval) < EPSILON) {
-        s = 0;
+        hsv.g = 0;
     }
     else {
-        s = (maxval - minval) / maxval;
+        hsv.g = (maxval - minval) / maxval;
     }
 
-    /** Value */
-    v = maxval;
+    /* Obtain the value */
+    hsv.b = maxval;
 
-    norm_col hsv = {h, s, v};
     return hsv;
 }

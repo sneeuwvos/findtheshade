@@ -30,20 +30,39 @@ rgb_color apply_affine_trans_via_yiq(
     rgb_color sample_target,
     rgb_color rgb_having
 ) {
+    /* Normalize the input colors from RGB 0-255 to RGB 0-1 */
     norm_col norm_source = rgb_norm(sample_source);
     norm_col norm_target = rgb_norm(sample_target);
 
+    /* Convert the normalized RGB colors to the YIQ color space */
     norm_col yiq_source = rgb_to_yiq(norm_source);
     norm_col yiq_target = rgb_to_yiq(norm_target);
 
+    /* More vars to be used later */
     double yiq_trans[9];
+    norm_col norm_having;
+    norm_col yiq_having;
+    norm_col yiq_wanted;
+    norm_col norm_wanted;
+    rgb_color rgb_wanted;
+
+    /* Obtain transformation matris yiq_source -> yiq_target */
     get_yiq_trans(yiq_source, yiq_target, yiq_trans);
 
-    norm_col norm_having = rgb_norm(rgb_having);
-    norm_col yiq_having = rgb_to_yiq(norm_having);
-    norm_col yiq_wanted = col_matmult(yiq_having, yiq_trans);
-    norm_col norm_wanted = yiq_to_rgb(yiq_wanted);
-    rgb_color rgb_wanted = rgb_unnorm(norm_wanted);
+    /**
+     * Normalize the owned color and convert it to the YIQ
+     * colorspace
+     * */
+    norm_having = rgb_norm(rgb_having);
+    yiq_having = rgb_to_yiq(norm_having);
+
+    /**
+     * Project the owned into the wanted color in the YIQ color
+     * space and convert it back to the RGB 0-255.
+     * */
+    yiq_wanted = col_matmult(yiq_having, yiq_trans);
+    norm_wanted = yiq_to_rgb(yiq_wanted);
+    rgb_wanted = rgb_unnorm(norm_wanted);
 
     return rgb_wanted;
 }

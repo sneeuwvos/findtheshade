@@ -11,6 +11,7 @@ int main(void) {
     rgb_color having = {189, 157, 144};
     rgb_color wanted = {198, 177, 172};
     const char* shade_name = "N4";
+    int i;
 
     /* Make the query */
     rgb_shade_search_result_with_meta search_results = closest_rgb_shades(
@@ -34,7 +35,7 @@ int main(void) {
         print_rgb_color(stdout, search_results.rgb_shade_wanted);
         printf("; luminance_cmp: %.3f\n\nOptions:\n", search_results.wanted_luminance_cmp);
 
-        for(int i=0; i<search_results.length; i++) {
+        for(i=0; i<search_results.length; i++) {
             rgb_shade_search_result* sr = &search_results.result_arr[i];
             printf(" - ");
             print_rgb_shade(stdout, *(sr->mc));

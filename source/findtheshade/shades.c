@@ -107,7 +107,8 @@ rgb_shade find_shade_by_name(
     const char* shade_name
 ) {
     rgb_shade shade_having;
-    for(int i=0; i < shade_arr_size; i++) {
+    int i;
+    for(i=0; i < shade_arr_size; i++) {
         rgb_shade curr_shade = shade_arr[i];
         if(!strcmp(curr_shade.name, shade_name)) {
             shade_having = curr_shade;
