@@ -25,7 +25,7 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
     if(is_null_shade(rgb_shade_having)) {
         rgb_shade_search_result_with_meta null_result;
         return null_result;
-    } // TODO: any error message?
+    } /* TODO: any error message? */
 
     /**
      * Now, use the real world colors to define affine color
@@ -38,7 +38,7 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
     /** Here it is. The wanted color */
     rgb_color rgb_shade_wanted = apply_affine_trans_via_yiq(color_having, color_wanted, rgb_shade_having.color);
 
-    // Compute its luminance diff ftr
+    /** Compute its luminance diff ftr */
     double wanted_luminance_cmp = luminance_cmp(rgb_shade_wanted, rgb_shade_having.color);
 
     /**

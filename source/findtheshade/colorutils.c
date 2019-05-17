@@ -66,7 +66,7 @@ double luminance_cmp(rgb_color having, rgb_color than) {
  * The small helper sq(...) should probably be elsewhere.
  * */
 
-double sq(double v) { return v*v; } // square doubles
+double sq(double v) { return v*v; } /* square doubles */
 
 double color_distance_base(int ar, int ag, int ab, int br, int bg, int bb) {
     return sqrt(sq(ar-br) + sq(ag-bg) + sq(ab - bb));
@@ -82,10 +82,10 @@ double hue_distance(rgb_color a, rgb_color b) {
     norm_col na = rgb_norm(a);
     norm_col nb = rgb_norm(b);
 
-    // Get hue from the a
+    /* Get hue from the a */
     norm_col hsva = rgb_to_hsv(na);
 
-    // Get hue from the b
+    /* Get hue from the b */
     norm_col hsvb = rgb_to_hsv(nb);
 
     return fabs(hsva.r - hsvb.r);
