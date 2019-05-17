@@ -1,7 +1,6 @@
 #include<string.h>
 
 #include "shades.h"
-#include "colorutils.h"
 
 /**
  * Definition of the null shade
