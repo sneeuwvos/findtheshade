@@ -3,25 +3,25 @@
 
 #include <stdio.h>
 
-#include "shades.h"
+/** Name tag for the null color */
+#define NO_COLOR_TAG "NOCOLOR"
 
-/**
- * Color searcher across an array of rgb_shades. It requires
- * the input array, its size, and the string name of the
- * color that is being looked for.
- * */
+/** Data type for a LDR (integer-valued) RGB color */
 
-rgb_shade find_shade_by_name(
-    rgb_shade* shade_arr,
-    int shade_arr_size,
-    const char* shade_name
-);
+typedef struct {
+    unsigned char r, g, b;
+} rgb_color;
+
+/** Data type for universal colors with three components */
+
+typedef struct {
+    double r, g, b;
+} norm_col;
 
 /**
  * Color printers. One for rgb_shade, one for rgb_color.
  * */
 
-void print_rgb_shade(FILE*, rgb_shade);
 void print_rgb_color(FILE*, rgb_color);
 
 /**
@@ -56,5 +56,25 @@ rgb_color apply_transformation_linear(rgb_color, double*);
 
 double color_distance(rgb_color a, rgb_color b);
 double color_distance_base(int ar, int ag, int ab, int br, int bg, int bb);
+
+/** Normalizer for 0-255 RGBs into [0-1] RGBs */
+
+norm_col rgb_norm(rgb_color rgb);
+
+/** Unnormalizer from [0-1] RGBs to 0-255 RGBs */
+
+rgb_color rgb_unnorm(norm_col nc);
+
+/** Multiplier for a color and a transformation matrix */
+
+norm_col col_matmult(norm_col col, double* mat);
+
+/** Converter from normalized RGB to YIQ */
+
+norm_col rgb_to_yiq(norm_col rgb);
+
+/** Converter from YIQ to normalized RGB */
+
+norm_col yiq_to_rgb(norm_col yiq);
 
 #endif

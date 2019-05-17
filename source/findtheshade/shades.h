@@ -1,23 +1,9 @@
 #ifndef INCL_FTS_SHADES
 #define INCL_FTS_SHADES
 
-// Name tag for the null color
-#define NO_COLOR_TAG "NOCOLOR"
+#include "colorutils.h"
 
-/**
- * Hereby defining the data types that will be used further
- * in the code.
- *
- * The first type is rgb_color, that contains plain LDR r,
- * g, b values with range 0-255.
- *
- * The second type is rgb_shade, that also contains pointer
- * to static string name of the foundation.
- * */
-
-typedef struct {
-    unsigned char r, g, b;
-} rgb_color;
+/** Data type for a RGB shade */
 
 typedef struct {
     rgb_color color;
@@ -33,8 +19,7 @@ typedef struct {
  * null color or not.
  * */
 
-rgb_shade null_shade; // Declaration of the null color
-
+rgb_shade null_shade; /* Declaration of the null shade */
 int is_null_shade(rgb_shade);
 
 /**
@@ -44,5 +29,21 @@ int is_null_shade(rgb_shade);
 
 rgb_shade* all_foundation_colors();
 int all_foundation_colors_size();
+
+/** Printer for a RGB shade */
+
+void print_rgb_shade(FILE*, rgb_shade);
+
+/**
+ * Color searcher across an array of rgb_shades. It requires
+ * the input array, its size, and the string name of the
+ * color that is being looked for.
+ * */
+
+rgb_shade find_shade_by_name(
+    rgb_shade* shade_arr,
+    int shade_arr_size,
+    const char* shade_name
+);
 
 #endif

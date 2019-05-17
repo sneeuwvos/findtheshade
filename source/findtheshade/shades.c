@@ -90,3 +90,30 @@ rgb_shade* all_foundation_colors() {
 int is_null_shade(rgb_shade color) {
     return color.name == 0 || !strcmp(color.name, NO_COLOR_TAG);
 }
+
+/** Printer for a RGB shade */
+
+void print_rgb_shade(FILE* handle, rgb_shade col) {
+    fprintf(handle, "%s: (%03d, %03d, %03d)", col.name, col.color.r, col.color.g, col.color.b);
+}
+
+/**
+ * Lookup of a shade by name inside an array. Yeh wish yeh
+ * had Perl hashes here.
+ * */
+
+rgb_shade find_shade_by_name(
+    rgb_shade* shade_arr,
+    int shade_arr_size,
+    const char* shade_name
+) {
+    rgb_shade shade_having;
+    for(int i=0; i < shade_arr_size; i++) {
+        rgb_shade curr_shade = shade_arr[i];
+        if(!strcmp(curr_shade.name, shade_name)) {
+            shade_having = curr_shade;
+            return shade_having;
+        }
+    }
+    return null_shade;
+}
