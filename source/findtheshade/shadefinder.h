@@ -32,7 +32,7 @@ typedef struct {
  * all the colors
  * */
 
-rgb_shade_search_result_with_meta closest_rgb_shades(
+rgb_shade_search_result_with_meta* closest_rgb_shades(
     /**
      * Array of rgb_shades that represent the assortment to
      * choose from. Then also its length.
@@ -62,5 +62,11 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
  * */
 
 int compare_temp_results_by_dist(const void *, const void *); /* Wants two of type rgb_shade_search_result */
+
+/**
+ * Custom freer for the search result data type
+ * */
+
+void free_closest_rgb_shades(rgb_shade_search_result_with_meta*);
 
 #endif

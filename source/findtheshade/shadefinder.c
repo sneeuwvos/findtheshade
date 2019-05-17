@@ -7,7 +7,7 @@ int compare_temp_results_by_dist(const void *a, const void *b) {
     return (int)(1000*((const rgb_shade_search_result*)a)->dist) - (int)(1000*((const rgb_shade_search_result*)b)->dist);
 }
 
-rgb_shade_search_result_with_meta closest_rgb_shades(
+rgb_shade_search_result_with_meta* closest_rgb_shades(
     rgb_shade* rgb_shade_arr,
     int rgb_shade_arr_size,
 
@@ -16,7 +16,7 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
     rgb_color color_wanted
 ) {
     /* The intended result */
-    rgb_shade_search_result_with_meta search_results_with_meta;
+    rgb_shade_search_result_with_meta* search_results_with_meta;
 
     /* Pointer to the array of options within the intended result */
     rgb_shade_search_result* search_results;
@@ -43,9 +43,8 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
 
     /** Check if it was possible to locate the owned shade */
     if(is_null_shade(rgb_shade_having)) {
-        rgb_shade_search_result_with_meta null_result;
-        return null_result;
-    } /* TODO: any error message? */
+        return 0; /* NULL */
+    }
 
     /**
      * Now, use the real world colors to define affine color
@@ -91,12 +90,18 @@ rgb_shade_search_result_with_meta closest_rgb_shades(
      * get altered in the future.
      * */
 
-    search_results_with_meta.result_arr = search_results;
-    search_results_with_meta.length = rgb_shade_arr_size;
-    search_results_with_meta.wanted_luminance_cmp = wanted_luminance_cmp;
-    search_results_with_meta.rgb_shade_wanted = rgb_shade_wanted;
-    search_results_with_meta.owned_shade = rgb_shade_having;
+    search_results_with_meta = calloc(1, sizeof(rgb_shade_search_result_with_meta));
+    search_results_with_meta->result_arr = search_results;
+    search_results_with_meta->length = rgb_shade_arr_size;
+    search_results_with_meta->wanted_luminance_cmp = wanted_luminance_cmp;
+    search_results_with_meta->rgb_shade_wanted = rgb_shade_wanted;
+    search_results_with_meta->owned_shade = rgb_shade_having;
 
     return search_results_with_meta;
 }
 
+void free_closest_rgb_shades(rgb_shade_search_result_with_meta* search_results) {
+    free(search_results->result_arr);
+    search_results->result_arr = 0; /* = NULL */
+    free(search_results);
+}
