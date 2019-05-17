@@ -38,7 +38,7 @@ int main(void) {
             rgb_shade_search_result* sr = &search_results.result_arr[i];
             printf(" - ");
             print_rgb_shade(stdout, *(sr->mc));
-            printf(": (dist: %.3f); luminance_cmp: %.3f\n", sr->dist, sr->luminance_cmp);
+            printf(": dist: %.3f; hue_dist: %.3f; luminance_cmp: %.3f\n", sr->dist, sr->hue_dist, sr->luminance_cmp);
         }
         free(search_results.result_arr);
     }
