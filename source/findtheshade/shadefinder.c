@@ -106,6 +106,7 @@ rgb_shade_search_result_with_meta* closest_rgb_shades(
 }
 
 void free_closest_rgb_shades(rgb_shade_search_result_with_meta* search_results) {
+    if(!search_results) return;
     free(search_results->result_arr);
     search_results->result_arr = 0; /* = NULL */
     free(search_results);
